@@ -32,5 +32,12 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
 
+  Router.beforeEach((to, from, next) => {
+    const DEFAULT_TITLE = 'MyApp';
+    document.title =
+      typeof to.meta.title === 'string' ? to.meta.title : DEFAULT_TITLE;
+    next();
+  });
+
   return Router;
 });
