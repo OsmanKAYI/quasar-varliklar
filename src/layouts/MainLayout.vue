@@ -13,7 +13,27 @@
 
         <q-toolbar-title> Quasar ile Varlık Hesabı </q-toolbar-title>
 
-        <div>Varlık v {{ $q.version }}</div>
+        <q-btn
+          flat
+          dense
+          @click="$q.fullscreen.toggle()"
+          :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
+          :label="$q.fullscreen.isActive ? 'TamEkran:Kapat' : 'TamEkran:Aç'"
+          :no-caps="true"
+          class="q-mr-sm"
+        />
+
+        <q-btn
+          flat
+          dense
+          @click="$q.dark.toggle()"
+          :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
+          :label="$q.fullscreen.isActive ? 'Dark' : 'Light'"
+          :no-caps="true"
+          class="q-mr-sm"
+        />
+
+        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
