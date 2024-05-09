@@ -4,3 +4,9 @@ export interface IAsset {
   value: string | number;
   currency: string;
 }
+
+export enum EAppEnums {
+  //formAction sadece bu değerleri alabilir
+  New = 'new',
+  Update = 'update',
+}
