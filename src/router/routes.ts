@@ -8,27 +8,27 @@ const routes: RouteRecordRaw[] = [
       {
         path: '',
         component: () => import('src/pages/IndexPage.vue'),
-        meta: { title: 'Home - MyApp' },
+        meta: { title: 'Home' },
       },
       {
         path: 'login',
         component: () => import('src/pages/LoginPage.vue'),
-        meta: { title: 'login - MyApp' },
+        meta: { title: 'login' },
       },
       {
         path: 'about',
         component: () => import('src/pages/AboutPage.vue'),
-        meta: { title: 'about - MyApp' },
+        meta: { title: 'about' },
       },
       {
         path: 'asset-types',
         component: () => import('src/pages/AssetTypesPage.vue'),
-        meta: { title: 'Asset Types - MyApp' },
+        meta: { title: 'Asset Types' },
       },
       {
         path: 'assets',
         component: () => import('src/pages/AssetsPage.vue'),
-        meta: { title: 'Assets - MyApp' },
+        meta: { title: 'Assets' },
       },
     ],
   },
@@ -38,7 +38,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:catchAll(.*)*',
     component: () => import('src/pages/404Page.vue'),
-    meta: { title: '404 Error - MyApp' },
+    meta: { title: '404 Error' },
   },
 ];
 
