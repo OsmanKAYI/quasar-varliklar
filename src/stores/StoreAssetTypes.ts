@@ -25,6 +25,9 @@ export const useStoreAssetTypes = defineStore({
   }),
 
   actions: {
+    getAssets(): IAsset[] {
+      return this.assetTypes;
+    },
     addAsset(newAsset: IAsset) {
       this.assetTypes.push(newAsset);
     },
