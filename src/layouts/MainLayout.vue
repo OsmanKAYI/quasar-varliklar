@@ -41,9 +41,9 @@
       <q-list>
         <q-item-label header>Yapabileceğiniz İşlemler </q-item-label>
         <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
+          v-for="item in leftDrawerItems"
+          :key="item.title"
+          v-bind="item"
         />
       </q-list>
     </q-drawer>
@@ -60,7 +60,7 @@ import EssentialLink, {
   EssentialLinkProps,
 } from 'src/components/EssentialLink.vue';
 
-const essentialLinks: EssentialLinkProps[] = [
+const leftDrawerItems: EssentialLinkProps[] = [
   {
     title: 'Ana Sayfa',
     caption: 'Ana sayfa',
