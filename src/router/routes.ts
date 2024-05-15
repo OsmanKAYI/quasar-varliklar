@@ -7,27 +7,27 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: '',
-        component: () => import('src/pages/IndexPage.vue'),
+        component: () => import('pages/IndexPage.vue'),
         meta: { title: 'Home' },
       },
       {
         path: 'login',
-        component: () => import('src/pages/LoginPage.vue'),
+        component: () => import('pages/LoginPage.vue'),
         meta: { title: 'login' },
       },
       {
         path: 'about',
-        component: () => import('src/pages/AboutPage.vue'),
+        component: () => import('pages/AboutPage.vue'),
         meta: { title: 'about' },
       },
       {
         path: 'asset-types',
-        component: () => import('src/pages/AssetTypesPage.vue'),
+        component: () => import('pages/AssetTypesPage.vue'),
         meta: { title: 'Asset Types' },
       },
       {
         path: 'assets',
-        component: () => import('src/pages/AssetsPage.vue'),
+        component: () => import('pages/AssetsPage.vue'),
         meta: { title: 'Assets' },
       },
     ],
@@ -37,7 +37,7 @@ const routes: RouteRecordRaw[] = [
   // but you can also remove it
   {
     path: '/:catchAll(.*)*',
-    component: () => import('src/pages/404Page.vue'),
+    component: () => import('pages/404Page.vue'),
     meta: { title: '404 Error' },
   },
 ];
