@@ -11,14 +11,18 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title> Quasar ile Varlık Hesabı </q-toolbar-title>
+        <q-toolbar-title>
+          Quasar ile Varlık Hesabı v{{ $q.version }}</q-toolbar-title
+        >
+        <q-space />
 
         <q-btn
           flat
           dense
+          rounded
           @click="$q.fullscreen.toggle()"
           :icon="$q.fullscreen.isActive ? 'fullscreen_exit' : 'fullscreen'"
-          :label="$q.fullscreen.isActive ? 'TamEkran:Kapat' : 'TamEkran:Aç'"
+          :xlabel="$q.fullscreen.isActive ? 'TamEkran:Kapat' : 'TamEkran:Aç'"
           :no-caps="true"
           class="q-mr-sm"
         />
@@ -26,14 +30,49 @@
         <q-btn
           flat
           dense
+          rounded
           @click="$q.dark.toggle()"
           :icon="$q.dark.isActive ? 'light_mode' : 'dark_mode'"
-          :label="$q.fullscreen.isActive ? 'Dark' : 'Light'"
-          :no-caps="true"
+          :xlabel="$q.fullscreen.isActive ? 'Dark' : 'Light'"
           class="q-mr-sm"
         />
 
-        <div>Quasar v{{ $q.version }}</div>
+        <template v-for="item in topMenuItems" :key="item.title">
+          <q-separator dark vertical />
+
+          <q-btn-dropdown stretch no-caps glossy flat :label="item.page_name">
+            <q-list>
+              <q-item
+                v-for="subItem in item.sub_menu"
+                :key="`x.${subItem.page_slug}`"
+                clickable
+                outline
+                v-close-popup
+                tabindex="0"
+                bordered
+                :to="'/page/' + item.page_slug"
+              >
+                <q-item-section>
+                  <q-item-label>
+                    <q-icon name="chevron_right" color="dark" size="md" />
+                    {{ subItem.page_name }}</q-item-label
+                  >
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </template>
+
+        <q-separator dark vertical />
+        <q-btn
+          flat
+          round
+          dense
+          icon="apps"
+          size="lg"
+          class="q-mr-xs"
+          @click="showMenu = !showMenu"
+        />
       </q-toolbar>
     </q-header>
 
@@ -82,8 +121,82 @@ const leftDrawerItems: EssentialLinkProps[] = [
 ];
 
 const leftDrawerOpen = ref(false);
+const showMenu = ref(false);
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
 }
+
+const topMenuItems = [
+  {
+    page_name: 'Kurumsal',
+    page_slug: 'kurumsal',
+    sub_menu: [
+      {
+        page_name: 'İlkelerimiz',
+        page_slug: 'ilkelerimiz',
+      },
+      {
+        page_name: 'Vizyonumuz',
+        page_slug: 'vizyonumuz',
+      },
+      {
+        page_name: 'Misyonumuz',
+        page_slug: 'misyonumuz',
+      },
+      {
+        page_name: 'Kalite Politikamız',
+        page_slug: 'kalite-politikamiz',
+      },
+      {
+        page_name: 'Belgelerimiz',
+        page_slug: 'belgelerimiz',
+      },
+      {
+        page_name: 'Filomuz',
+        page_slug: 'filomuz',
+      },
+      {
+        page_name: 'Gizlilik Bildirimimiz',
+        page_slug: 'gizlilik-bildirimimiz',
+      },
+      {
+        page_name: 'İnsan Kaynakları',
+        page_slug: 'insan-kaynaklari',
+      },
+    ],
+  },
+
+  {
+    page_name: 'Seyahat',
+    page_slug: 'seyahat',
+    sub_menu: [
+      { page_name: 'Bagaj İşlemleri', page_slug: 'bagaj-islemleri' },
+      {
+        page_name: 'Yolcu Taşıma Sözleşmesi',
+        page_slug: 'yolcu-tasima-sozlesmesi',
+      },
+      {
+        page_name: 'Sıkça Sorulan Sorular',
+        page_slug: 'sikca-sorulan-sorular',
+      },
+      { page_name: 'Neden Özlem Seyahat?', page_slug: 'neden-ozlem-seyahat' },
+      { page_name: '444 18 18', page_slug: '444-18-18' },
+      { page_name: 'Peronlar', page_slug: 'peronlar' },
+      { page_name: 'Zaman Tarifesi', page_slug: 'zaman-tarifesi' },
+      { page_name: 'Ücret Tarifesi', page_slug: 'ucret-tarifesi' },
+      { page_name: 'Açık Bilet', page_slug: 'acik-bilet' },
+    ],
+  },
+
+  {
+    page_name: 'İletişim',
+    page_slug: 'iletisim',
+    sub_menu: [
+      { page_name: 'Telefonlar / Şubeler', page_slug: 'telefonlar-subeler' },
+      { page_name: 'İletişim', page_slug: 'iletisim' },
+      { page_name: 'e-Bilet', page_slug: 'e-bilet' },
+    ],
+  },
+];
 </script>
