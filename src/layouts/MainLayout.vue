@@ -77,14 +77,38 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header>Yapabileceğiniz İşlemler </q-item-label>
-        <EssentialLink
-          v-for="item in leftDrawerItems"
-          :key="item.title"
-          v-bind="item"
-        />
-      </q-list>
+      <q-scroll-area class="fit">
+        <q-list>
+          <q-item-label header>Yapabileceğiniz İşlemler </q-item-label>
+          <EssentialLink
+            v-for="item in leftDrawerItems"
+            :key="item.title"
+            v-bind="item"
+          />
+        </q-list>
+
+        <q-list v-if="pages.length > 0">
+          <q-item v-for="page in getParents()" :key="page.id">
+            <q-item-section>
+              <q-item-label @click="toggleSubMenu(page)" class="cursor-pointer">
+                {{ page.page_name }}
+              </q-item-label>
+
+              <template v-if="page.showSubMenu">
+                <q-item
+                  class="cursor-pointer"
+                  v-for="subPage in getChildren(page.id)"
+                  :key="subPage.id"
+                >
+                  <q-item-section @click.prevent="navigate(subPage)">
+                    &nbsp;&nbsp;{{ subPage.page_name }}
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-scroll-area>
     </q-drawer>
 
     <q-page-container>
@@ -199,4 +223,46 @@ const topMenuItems = [
     ],
   },
 ];
+
+// MENU
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import { useRouter } from 'vue-router';
+const router = useRouter();
+
+const pages = ref([]);
+
+onMounted(() => {
+  fetchPages();
+});
+
+async function fetchPages() {
+  try {
+    const response = await axios.get(
+      'http://localhost/quasar/varliklar/public/api/menu.php'
+    );
+    pages.value = response.data.map((page) => ({
+      ...page,
+      showSubMenu: false, // Gelen içerikteki her bir elemana "showSubMenu: false" özelliği ekleyelim
+    }));
+  } catch (error) {
+    console.error('Error fetching pages:', error);
+  }
+}
+
+function toggleSubMenu(page) {
+  page.showSubMenu = !page.showSubMenu;
+}
+
+function navigate(page) {
+  router.push({ path: '/bilgi/' + page.page_slug });
+}
+
+function getChildren(parentId) {
+  return pages.value.filter((page) => page.parent_id == parentId);
+}
+
+function getParents() {
+  return pages.value.filter((page) => page.parent_id == 0);
+}
 </script>
