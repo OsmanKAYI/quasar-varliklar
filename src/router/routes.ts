@@ -30,6 +30,11 @@ const routes: RouteRecordRaw[] = [
         component: () => import('pages/AssetsPage.vue'),
         meta: { title: 'Assets' },
       },
+      {
+        path: 'bilgi/:slug',
+        component: () => import('pages/BilgiPage.vue'),
+        meta: { title: 'Bilgi' },
+      },
     ],
   },
 
