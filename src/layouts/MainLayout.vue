@@ -37,7 +37,7 @@
           class="q-mr-sm"
         />
 
-        <template v-for="item in topMenuItems" :key="item.title">
+        <template v-for="item in topMenuItems" :key="item.page_slug">
           <q-separator dark vertical />
 
           <q-btn-dropdown stretch no-caps glossy flat :label="item.page_name">
