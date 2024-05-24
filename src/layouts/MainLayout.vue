@@ -87,16 +87,21 @@
           />
         </q-list>
 
-        <q-list v-if="pages.length > 0">
-          <q-item v-for="page in getParents()" :key="page.id">
-            <q-item-section>
-              <q-item-label @click="toggleSubMenu(page)" class="cursor-pointer">
-                {{ page.page_name }}
-              </q-item-label>
+        <hr class="q-my-lg" />
 
-              <template v-if="page.showSubMenu">
+        <q-list>
+          <q-item-label header>Menü İçerikleri</q-item-label>
+          <q-expansion-item
+            icon="star"
+            :label="page.page_name"
+            v-for="page in getParents()"
+            :key="page.id"
+            @click="toggleSubMenu(page)"
+          >
+            <q-card class="q-ml-md" v-if="page.showSubMenu">
+              <q-list bordered separator>
                 <q-item
-                  class="cursor-pointer"
+                  clickable
                   v-for="subPage in getChildren(page.id)"
                   :key="subPage.id"
                 >
@@ -104,9 +109,9 @@
                     &nbsp;&nbsp;{{ subPage.page_name }}
                   </q-item-section>
                 </q-item>
-              </template>
-            </q-item-section>
-          </q-item>
+              </q-list>
+            </q-card>
+          </q-expansion-item>
         </q-list>
       </q-scroll-area>
     </q-drawer>
@@ -118,7 +123,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import EssentialLink, {
   EssentialLinkProps,
 } from 'src/components/EssentialLink.vue';
@@ -228,9 +232,17 @@ const topMenuItems = [
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+
+const pages = ref<IPage[]>([]);
 const router = useRouter();
 
-const pages = ref([]);
+interface IPage {
+  id: number;
+  page_name: string;
+  page_slug: string;
+  parent_id: number;
+  showSubMenu: boolean;
+}
 
 onMounted(() => {
   fetchPages();
@@ -241,7 +253,7 @@ async function fetchPages() {
     const response = await axios.get(
       'http://localhost/quasar/varliklar/public/api/menu.php'
     );
-    pages.value = response.data.map((page) => ({
+    pages.value = response.data.map((page: Omit<IPage, 'showSubMenu'>) => ({
       ...page,
       showSubMenu: false, // Gelen içerikteki her bir elemana "showSubMenu: false" özelliği ekleyelim
     }));
@@ -250,19 +262,19 @@ async function fetchPages() {
   }
 }
 
-function toggleSubMenu(page) {
+function toggleSubMenu(page: IPage) {
   page.showSubMenu = !page.showSubMenu;
 }
 
-function navigate(page) {
+function navigate(page: IPage) {
   router.push({ path: '/bilgi/' + page.page_slug });
 }
 
-function getChildren(parentId) {
-  return pages.value.filter((page) => page.parent_id == parentId);
+function getChildren(parentId: number): IPage[] {
+  return pages.value.filter((page) => page.parent_id === parentId);
 }
 
-function getParents() {
-  return pages.value.filter((page) => page.parent_id == 0);
+function getParents(): IPage[] {
+  return pages.value.filter((page) => page.parent_id === 0);
 }
 </script>
