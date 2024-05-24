@@ -271,10 +271,10 @@ function navigate(page: IPage) {
 }
 
 function getChildren(parentId: number): IPage[] {
-  return pages.value.filter((page) => page.parent_id === parentId);
+  return pages.value.filter((page) => page.parent_id == parentId);
 }
 
 function getParents(): IPage[] {
-  return pages.value.filter((page) => page.parent_id === 0);
+  return pages.value.filter((page) => page.parent_id == 0);
 }
 </script>
