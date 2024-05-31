@@ -5,8 +5,7 @@
       Hata Oluştu: {{ pageError }}
     </div>
     <div v-else>
-      <h3>{{ pageData.page_name }}</h3>
-      <pre>{{ pageData.md_content }}</pre>
+      <div v-html="pageData.html_content"></div>
     </div>
   </q-page>
 </template>
@@ -21,8 +20,6 @@ const pageData = ref<any>({});
 const pageLoading = ref<boolean>(true);
 const pageError = ref<string | null>(null);
 const route = useRoute();
-
-let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
 watchEffect(async () => {
   const slug = route.params.slug;
