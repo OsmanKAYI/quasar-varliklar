@@ -4,7 +4,21 @@ require_once 'fonksiyonlarim.php';
 require_once 'db.php';
 
 header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Origin, Accept");
+header("Access-Control-Allow-Credentials: true");
+header("Access-Control-Max-Age: 86400");
 
+
+if (isset($_GET['islem'])) {
+  if ($_GET['islem'] == 'kategoriler') {
+    $result = fetchCategories($DB);
+    // JSON formatında cevap döndür
+    header("Content-Type: application/json; charset=UTF-8");
+    echo json_encode($result, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    die();
+  }
+}
 
 if (isset($_GET['page_slug'])) {
 
