@@ -49,10 +49,19 @@ function fetchPage($DB, $page_slug)
   return $result;
 }
 
-
 function fetchMenus($DB)
 {
   $sql = "SELECT id, page_name, page_slug, parent_id FROM web_pages ORDER BY parent_id, sort_order";
+  $stmt = $DB->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Tüm sonuçlar gelsin (fetchAll)
+  return $result;
+}
+
+function fetchCategories($DB)
+{
+  $id = intval($_GET['id']);
+  $sql = "SELECT id, parentid, name FROM kategoriler WHERE parentid = '{$id}' ";
   $stmt = $DB->prepare($sql);
   $stmt->execute();
   $result = $stmt->fetchAll(PDO::FETCH_ASSOC); // Tüm sonuçlar gelsin (fetchAll)
