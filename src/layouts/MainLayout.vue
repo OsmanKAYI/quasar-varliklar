@@ -129,22 +129,34 @@ import EssentialLink, {
 
 const leftDrawerItems: EssentialLinkProps[] = [
   {
-    title: 'Ana Sayfa',
-    caption: 'Ana sayfa',
+    title: 'Nereden Nereye Seçimi',
+    caption: 'Nereden Nereye',
     icon: 'home',
     link: '/',
+  },
+  {
+    title: 'Tarih seçimi',
+    caption: 'Tarih',
+    icon: 'work',
+    link: '/assets',
+  },
+  {
+    title: 'Tatiller',
+    caption: 'Tatiller',
+    icon: 'calendar_month',
+    link: '/about',
+  },
+  {
+    title: 'Test',
+    caption: 'Test',
+    icon: 'place',
+    link: '/test',
   },
   {
     title: 'Tanımlar',
     caption: 'Varlık türleri',
     icon: 'settings',
     link: '/asset-types',
-  },
-  {
-    title: 'Varlıklarım',
-    caption: 'Varlıklarım',
-    icon: 'work',
-    link: '/assets',
   },
 ];
 

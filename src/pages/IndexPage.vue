@@ -6,7 +6,7 @@
           <SelectStation
             label="Nereden"
             icon-name="place"
-            icon-color="black"
+            icon-color="green"
             :options="getItemsFrom"
             v-model="stationFrom"
             @input="handleSelection"
