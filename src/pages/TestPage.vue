@@ -1,158 +1,90 @@
-<script setup lang="ts">
-import { ref } from 'vue';
-import { date } from 'quasar';
-let todaysDate = new Date();
-
-const departureDate = ref(date.formatDate(todaysDate, 'DD-MM-YYYY'));
-
-const departureDateLimit = ref(
-  date.formatDate(
-    date.addToDate(todaysDate, {
-      days: 70,
-      months: 0,
-    }),
-    'DD-MM-YYYY'
-  )
-);
-
-const items = [
-  { id: '9', name: 'Ankara' },
-  { id: '2', name: 'İstanbul' },
-  { id: '1', name: 'Çankırı' },
-  { id: '3', name: 'Ilgaz' },
-];
-
-const filteredItems = ref(items);
-
-const setToday = () => {
-  let myDate = new Date();
-  departureDate.value = date.formatDate(myDate, 'DD-MM-YYYY');
-};
-const setTomorrow = () => {
-  let myDate = new Date();
-  let tmpDate = date.addToDate(myDate, {
-    days: 1,
-  });
-  departureDate.value = date.formatDate(tmpDate, 'DD-MM-YYYY');
-};
-const setCurrentMonth = () => {
-  let myDate = new Date();
-  departureDate.value = date.formatDate(myDate, 'DD-MM-YYYY');
-};
-const setNextMonth = () => {
-  let myDate = new Date();
-  myDate.setMonth(myDate.getMonth() + 1);
-  myDate.setDate(1);
-  departureDate.value = date.formatDate(myDate, 'DD-MM-YYYY');
-};
-function dateOptions(calendarDate: string): boolean {
-  const timeStamp = Date.now();
-  const minDate = date.formatDate(timeStamp, 'YYYY/MM/DD');
-
-  const timeStamp70 = date.addToDate(timeStamp, { days: 70, months: 0 });
-  const maxDate = date.formatDate(timeStamp70, 'YYYY/MM/DD');
-  return calendarDate >= minDate && calendarDate <= maxDate;
-}
-
-const journeyDate = ref(date as any);
-function updateJourneyDate() {
-  journeyDate.value = departureDate.value;
-}
-
-function saveDate() {
-  departureDate.value == journeyDate.value;
-}
-
-function filterItems(val: string, update: any) {
-  update(() => {
-    const needle = turkishToLower(val);
-    filteredItems.value = items.filter((item) =>
-      turkishToLower(item.name).includes(needle)
-    );
-  });
-}
-
-function turkishToLower(str: string): string {
-  return str
-    .replace(/[\u0130]/g, 'i') // İ -> i
-    .replace(/[\u0049]/g, 'ı') // I -> ı
-    .replace(/[\u011e]/g, 'g') // Ğ -> ğ
-    .replace(/[\u011f]/g, 'ğ') // ğ -> ğ
-    .replace(/[\u00dc]/g, 'u') // Ü -> ü
-    .replace(/[\u00fc]/g, 'ü') // ü -> ü
-    .replace(/[\u015e]/g, 's') // Ş -> ş
-    .replace(/[\u015f]/g, 'ş') // ş -> ş
-    .toLowerCase();
-}
-</script>
-
 <template>
-  <div class="flex flex-center">
-    <q-list style="max-width: 500px">
-      <q-btn icon="event" round color="primary">
-        <q-popup-proxy
-          @before-show="updateJourneyDate"
-          cover
-          transition-show="scale"
-          transition-hide="scale"
-        >
-          <q-date
-            v-model="departureDate"
-            mask="DD-MM-YYYY"
-            :subtitle="departureDate"
-            title="Tarih Seçiniz"
-            years-in-month-view
-            :max="departureDateLimit"
-            today-btn
-            :options="dateOptions"
-            no-unset
-          >
-            <q-btn
-              class="q-ml-md q-mb-sm"
-              color="primary"
-              label="Bugün"
-              @click="setToday"
-            />
-            <q-btn
-              class="q-ml-md"
-              color="primary"
-              label="Yarın"
-              @click="setTomorrow"
-            />
-            <q-btn
-              class="q-ml-md q-mb-sm"
-              color="secondary"
-              label="Bu Ay"
-              @click="setCurrentMonth"
-            />
-            <q-btn
-              class="q-ml-md"
-              color="secondary"
-              label="Gelecek Ay"
-              @click="setNextMonth"
-              no-wrap
-            />
+  <q-dialog
+    v-model="var1"
+    maximized
+    transition-show="slide-down"
+    transition-hide="slide-up"
+    transition-duration="150"
+  >
+    <TestPage1 v-model:stationInfo="stationFrom"></TestPage1>
+  </q-dialog>
 
-            <q-btn label="Cancel" color="primary" flat v-close-popup />
-            <q-btn
-              label="OK"
-              color="primary"
-              flat
-              @click="saveDate"
-              v-close-popup
-            />
-          </q-date>
-        </q-popup-proxy>
-      </q-btn>
+  <q-dialog
+    v-model="var2"
+    maximized
+    transition-show="slide-down"
+    transition-hide="slide-up"
+    transition-duration="150"
+  >
+    <TestPage1 v-model:stationInfo="stationTo"></TestPage1>
+  </q-dialog>
+
+  <q-dialog
+    v-model="var3"
+    maximized
+    transition-show="slide-down"
+    transition-hide="slide-up"
+    transition-duration="150"
+  >
+    <TestPage2 v-model:selectDate="journeyDate"></TestPage2>
+  </q-dialog>
+
+  <q-page class="flex flex-center">
+    <q-list style="width: 300px">
+      <q-card
+        class="bg-teal text-center q-my-sm text-white"
+        @click="var1 = !var1"
+      >
+        <q-card-section>
+          <div class="text-subtitle1 text-white">Nereden?</div>
+        </q-card-section>
+
+        <q-card-section>
+          <q-item-label class="text-h5 text-white" lines="2">{{
+            stationFrom
+          }}</q-item-label>
+        </q-card-section>
+      </q-card>
+
+      <q-card
+        class="bg-primary text-center q-my-sm text-white"
+        @click="var1 = !var1"
+      >
+        <q-card-section>
+          <div class="text-subtitle1 text-white">Nereye?</div>
+        </q-card-section>
+
+        <q-card-section>
+          <div class="text-h5 text-white" lines="1">{{ stationTo }}</div>
+        </q-card-section>
+      </q-card>
+
+      <q-card
+        class="bg-secondary text-white text-center q-my-sm"
+        @click="var3 = !var3"
+      >
+        <q-item>
+          <q-item-section>
+            <q-item-label><b>Tarih?</b></q-item-label>
+          </q-item-section>
+        </q-item>
+        <q-item>
+          <q-item-section>
+            <q-item-label class="text-h5">{{ journeyDate }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </q-card>
+
+      <div>
+        <q-btn
+          size="lg"
+          color="primary"
+          label="SEFER BUL"
+          class="inline-block"
+        />
+      </div>
     </q-list>
-
-    <br />
-
-    <div>
-      <b>departureDate:</b> {{ departureDate }}<br />
-      <b>departureDateLimit:</b> {{ departureDateLimit }}<br />
-    </div>
-  </div>
+  </q-page>
 </template>
 
 <style scoped>
@@ -161,3 +93,20 @@ function turkishToLower(str: string): string {
   margin: auto;
 }
 </style>
+
+<script setup lang="ts">
+import { ref } from 'vue';
+import TestPage1 from 'pages/TestPage1.vue';
+import TestPage2 from 'pages/TestPage2.vue';
+
+const var1 = ref(false);
+const var2 = ref(false);
+const var3 = ref(false);
+const stationFrom = ref<string | null>(null);
+const stationTo = ref<string | null>(null);
+const journeyDate = ref<string | null>(null);
+
+stationFrom.value = 'Ankara';
+stationTo.value = 'Çankırı';
+journeyDate.value = '2024/06/24';
+</script>

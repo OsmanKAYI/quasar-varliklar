@@ -147,16 +147,34 @@ const leftDrawerItems: EssentialLinkProps[] = [
     link: '/about',
   },
   {
-    title: 'Test',
-    caption: 'Test',
-    icon: 'place',
-    link: '/test',
-  },
-  {
     title: 'Tanımlar',
     caption: 'Varlık türleri',
     icon: 'settings',
     link: '/asset-types',
+  },
+  {
+    title: 'Test',
+    caption: 'Test',
+    icon: 'mms',
+    link: '/test',
+  },
+  {
+    title: 'Test 1',
+    caption: 'Test 1',
+    icon: 'chat_bubble',
+    link: '/test1',
+  },
+  {
+    title: 'Test 2',
+    caption: 'Test 2',
+    icon: 'food_bank',
+    link: '/test2',
+  },
+  {
+    title: 'Test 3',
+    caption: 'Test 3',
+    icon: 'comment_bank',
+    link: '/test3',
   },
 ];
 

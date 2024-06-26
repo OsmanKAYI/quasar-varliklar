@@ -165,7 +165,7 @@ const getItemsTo = computed<StationItem[]>(() => {
 
 const handleSelection = (value: string | null) => {
   // Handle selection
-  console.log('Handle selection');
+  console.log('Handle selection', value);
   stationTo.value = null;
 };
 </script>
