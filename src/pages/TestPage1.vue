@@ -43,11 +43,13 @@
             :key="option"
             clickable
             v-ripple
+            @click="handleSelect(option)"
+            v-close-popup
           >
             <q-item-section side>
               <q-icon name="place" color="primary" size="md" rounded />
             </q-item-section>
-            <q-item-section @click="handleSelect(option)" v-close-popup>
+            <q-item-section>
               <q-item-label>{{ option }}</q-item-label>
               <q-item-label caption>{{ option }} için şehir adı</q-item-label>
             </q-item-section>
