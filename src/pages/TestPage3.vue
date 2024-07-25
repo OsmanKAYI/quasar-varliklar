@@ -1,92 +1,107 @@
 <template>
-  <div>
-    <q-date
-      v-model="selectedDate"
-      ref="refSelectedDate"
-      @navigation="onCalenderNavigation"
-      :events="holidaysFn"
-      :event-color="eventsColor"
-    >
-      <div class="row xxflex-justify-between">
-        <div class="col-6">
-          <q-btn
-            no-caps
-            color="primary"
-            @click="prevMonth"
-            style="width: 110px"
-            class="q-mb-sm"
-            Xrounded
-            outline
-            Xdense
-            no-wrap
-            icon="skip_previous"
-            >Önceki Ay</q-btn
+  <div class="bg-white">
+    <q-toolbar class="bg-primary text-white">
+      <q-avatar>
+        <img src="/logos/OzlemLogo_64x64.svg" />
+      </q-avatar>
+      <q-toolbar-title>Seyahat Tarihi?</q-toolbar-title>
+      <q-btn flat round dense icon="close" size="lg" />
+    </q-toolbar>
+
+    <q-page class="flex flex-center">
+      <div style="max-width: 300px; border: 2px solid red">
+        <q-date
+          v-model="selectedDate"
+          ref="refSelectedDate"
+          @navigation="onCalenderNavigation"
+          :events="holidaysFn"
+          :event-color="eventsColor"
+        >
+          <div class="row q-col-gutter-xs">
+            <div class="col-12">
+              <q-btn
+                no-caps
+                color="primary"
+                @click="selectAndContinue"
+                class="full-width"
+                size="lg"
+                outline
+                no-wrap
+                v-close-popup
+                icon-right="send"
+                label="Devam Et"
+              />
+            </div>
+
+            <div class="col-6">
+              <q-btn
+                no-caps
+                color="primary"
+                @click="prevMonth"
+                class="full-width"
+                outline
+                no-wrap
+                icon="skip_previous"
+                label="Önceki Ay"
+              />
+            </div>
+            <div class="col-6">
+              <q-btn
+                no-caps
+                color="primary"
+                @click="nextMonth"
+                class="full-width"
+                outline
+                no-wrap
+                icon-right="skip_next"
+                label="Sonraki Ay"
+              />
+            </div>
+            <div class="col-6">
+              <q-btn
+                no-caps
+                color="positive"
+                @click="setToday"
+                class="full-width"
+                outline
+                no-wrap
+                >Bugün</q-btn
+              >
+            </div>
+            <div class="col-6">
+              <q-btn
+                no-caps
+                color="primary"
+                @click="setTomorrow"
+                class="full-width"
+                outline
+                no-wrap
+                >Yarın</q-btn
+              >
+            </div>
+          </div>
+        </q-date>
+
+        <q-item v-if="holidayName">
+          <q-banner rounded class="bg-orange text-black">
+            {{ holidayName }}
+          </q-banner>
+        </q-item>
+
+        <pre><b>takvimAy: </b>{{ takvimAy }}</pre>
+        <pre><b>takvimYil: </b>{{ takvimYil }}</pre>
+        <pre><b>selectedDate: </b>{{ selectedDate }}</pre>
+        <pre><b>refSelectedDate: </b>refSelectedDate </pre>
+        <p>
+          <b>NOT: </b> refSelectedDate içeriğini ekrana yazdırmak şu uyarıyı
+          konsola düşürür:<br /><i
+            >[Vue warn]: Avoid app logic that relies on enumerating keys on a
+            component instance. The keys will be empty in production mode to
+            avoid performance overhead.</i
           >
-        </div>
-        <div class="col-6">
-          <q-btn
-            no-caps
-            color="primary"
-            @click="nextMonth"
-            style="width: 110px"
-            class="q-mb-sm"
-            Xrounded
-            outline
-            Xdense
-            no-wrap
-            icon-right="skip_next"
-            >Sonraki Ay</q-btn
-          >
-        </div>
-        <div class="col-6">
-          <q-btn
-            no-caps
-            color="positive"
-            @click="setToday"
-            style="width: 110px"
-            class="q-mb-sm"
-            Xrounded
-            outline
-            Xdense
-            no-wrap
-            >Bugün</q-btn
-          >
-        </div>
-        <div class="col-6">
-          <q-btn
-            no-caps
-            color="primary"
-            @click="setTomorrow"
-            style="width: 110px"
-            class="q-mb-sm"
-            Xrounded
-            outline
-            Xdense
-            no-wrap
-            >Yarın</q-btn
-          >
-        </div>
+        </p>
       </div>
-    </q-date>
-
-    <q-item v-if="holidayName">
-      <q-banner rounded class="bg-orange text-black">
-        {{ holidayName }}
-      </q-banner>
-    </q-item>
-
-    <pre><b>takvimAy: </b>{{ takvimAy }}</pre>
-    <pre><b>takvimYil: </b>{{ takvimYil }}</pre>
-    <pre><b>selectedDate: </b>{{ selectedDate }}</pre>
-    <pre><b>refSelectedDate: </b>refSelectedDate </pre>
-    <p>
-      <b>NOT: </b> refSelectedDate içeriğini ekrana yazdırmak şu uyarıyı konsola
-      düşürür:<br /><i
-        >[Vue warn]: Avoid app logic that relies on enumerating keys on a
-        component instance. The keys will be empty in production mode to avoid
-        performance overhead.</i
-      >
-    </p>
+    </q-page>
   </div>
 </template>
 
@@ -149,11 +164,13 @@ const prevMonth = () => {
   updateDatePicker();
 };
 
+/*
 const setToSpecificDate = () => {
   if (refSelectedDate.value) {
     refSelectedDate.value.setCalendarTo(2028, 7);
   }
 };
+*/
 
 const updateDatePicker = () => {
   if (refSelectedDate.value) {

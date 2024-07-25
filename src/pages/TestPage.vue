@@ -16,7 +16,7 @@
     transition-hide="slide-up"
     transition-duration="150"
   >
-    <TestPage1 v-model:stationInfo="stationTo"></TestPage1>
+    <TestPage2 v-model:stationInfo="stationTo"></TestPage2>
   </q-dialog>
 
   <q-dialog
@@ -26,7 +26,7 @@
     transition-hide="slide-up"
     transition-duration="150"
   >
-    <TestPage2 v-model:selectDate="journeyDate"></TestPage2>
+    <TestPage3 v-model:selectDate="journeyDate"></TestPage3>
   </q-dialog>
 
   <q-page class="flex flex-center">
@@ -48,7 +48,7 @@
 
       <q-card
         class="bg-primary text-center q-my-sm text-white"
-        @click="var1 = !var1"
+        @click="var2 = !var2"
       >
         <q-card-section>
           <div class="text-subtitle1 text-white">Nereye?</div>
@@ -98,6 +98,7 @@
 import { ref } from 'vue';
 import TestPage1 from 'pages/TestPage1.vue';
 import TestPage2 from 'pages/TestPage2.vue';
+import TestPage3 from 'pages/TestPage3.vue';
 
 const var1 = ref(false);
 const var2 = ref(false);

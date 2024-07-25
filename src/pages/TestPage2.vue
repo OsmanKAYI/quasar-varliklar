@@ -1,6 +1,6 @@
 <template>
   <div class="bg-white">
-    <div class="">
+    <div>
       <q-toolbar class="bg-primary text-white">
         <q-avatar>
           <img src="/logos/OzlemLogo_64x64.svg" />
@@ -123,7 +123,10 @@ const handleSelect = (option: string) => {
   console.log(option);
 };
 
-const stationInfo = defineModel('stationInfo', { type: String, default: null });
+const stationInfo = defineModel<string | null>('stationInfo', {
+  type: String,
+  default: null,
+});
 
 const quasarSearchInput = ref(null);
 </script>

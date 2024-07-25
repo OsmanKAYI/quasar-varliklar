@@ -60,10 +60,10 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, computed } from 'vue';
 
-const myFilter = ref(null);
+const myFilter = ref<string | null>(null);
 const myOptions = ref([
   'Option 1',
   'Option 2',
@@ -88,19 +88,24 @@ const myOptions = ref([
 ]);
 
 const filteredOptions = computed(() => {
-  // console.log(quasarSearchInput.value);
+  const filter = myFilter.value;
+  const options = myOptions.value;
 
-  if (!myFilter.value) return myOptions.value;
-  return myOptions.value.filter((option) =>
-    option.toLowerCase().includes(myFilter.value.toLowerCase())
+  if (!filter || filter == null) return options;
+
+  return options.filter((option) =>
+    option.toLowerCase().includes(filter.toLowerCase())
   );
 });
 
-const handleSelect = (option) => {
+const handleSelect = (option: string) => {
   stationInfo.value = option;
 };
 
-const stationInfo = defineModel('stationInfo', { type: String, default: null });
+const stationInfo = defineModel<string | null>('stationInfo', {
+  type: String,
+  default: null,
+});
 
 const quasarSearchInput = ref(null);
 </script>
