@@ -20,6 +20,16 @@
   </q-dialog>
 
   <q-dialog
+    v-model="var2a"
+    maximized
+    transition-show="slide-down"
+    transition-hide="slide-up"
+    transition-duration="150"
+  >
+    <TestPage4 v-model:stationInfo="stationTo"></TestPage4>
+  </q-dialog>
+
+  <q-dialog
     v-model="var3"
     maximized
     transition-show="slide-down"
@@ -36,7 +46,7 @@
         @click="var1 = !var1"
       >
         <q-card-section>
-          <div class="text-subtitle1 text-white">Nereden?</div>
+          <div class="text-subtitle1 text-white">Nereden? test1</div>
         </q-card-section>
 
         <q-card-section>
@@ -51,7 +61,20 @@
         @click="var2 = !var2"
       >
         <q-card-section>
-          <div class="text-subtitle1 text-white">Nereye?</div>
+          <div class="text-subtitle1 text-white">Nereye? test3</div>
+        </q-card-section>
+
+        <q-card-section>
+          <div class="text-h5 text-white" lines="1">{{ stationTo }}</div>
+        </q-card-section>
+      </q-card>
+
+      <q-card
+        class="bg-primary text-center q-my-sm text-white"
+        @click="var2a = !var2a"
+      >
+        <q-card-section>
+          <div class="text-subtitle1 text-white">Nereye? test 4</div>
         </q-card-section>
 
         <q-card-section>
@@ -65,7 +88,7 @@
       >
         <q-item>
           <q-item-section>
-            <q-item-label><b>Tarih?</b></q-item-label>
+            <q-item-label><b>Tarih? test3</b></q-item-label>
           </q-item-section>
         </q-item>
         <q-item>
@@ -99,10 +122,12 @@ import { ref } from 'vue';
 import TestPage1 from 'pages/TestPage1.vue';
 import TestPage2 from 'pages/TestPage2.vue';
 import TestPage3 from 'pages/TestPage3.vue';
+import TestPage4 from 'pages/TestPage4.vue';
 
 const var1 = ref(false);
 const var2 = ref(false);
 const var3 = ref(false);
+const var2a = ref(false);
 const stationFrom = ref<string | null>(null);
 const stationTo = ref<string | null>(null);
 const journeyDate = ref<string | null>(null);
