@@ -8,13 +8,16 @@
         <q-toolbar-title>Seyahat Tarihi?</q-toolbar-title>
         <q-btn flat round dense icon="close" size="lg" v-close-popup />
       </q-toolbar>
-      <div class="q-ma-none q-pa-sm bg-white text-black">Sayfa üst mesajı</div>
+      <div class="hidden q-ma-none q-pa-sm bg-white text-black">
+        Sayfa üst mesajı
+      </div>
     </q-header>
 
     <q-page-container>
       <q-page class="flex justify-around">
         <div style="max-width: min-content">
           <q-date
+            v-touch-swipe.mouse.left.right="handleSwipe"
             class="q-mt-md my-date"
             v-model="selectedDate"
             ref="refSelectedDate"
@@ -89,19 +92,7 @@
               </div>
             </div>
           </q-date>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            maiores vitae rem eaque aperiam ipsam minima esse provident aut,
-            maxime cum beatae voluptates harum sint dolorem error reiciendis ad
-            eum.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
-            maiores vitae rem eaque aperiam ipsam minima esse provident aut,
-            maxime cum beatae voluptates harum sint dolorem error reiciendis ad
-            eum.
-          </p>
-          <p>
+          <p v-for="i in 0" :key="i">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Excepturi
             maiores vitae rem eaque aperiam ipsam minima esse provident aut,
             maxime cum beatae voluptates harum sint dolorem error reiciendis ad
@@ -309,21 +300,37 @@ function getHolidayName(dateString: string) {
 watchEffect(() => {
   holidayName.value = getHolidayName(selectedDate.value);
 });
+
+// Takvimde sağa ve sola çekme (swipe) işlemleri
+interface TouchEvent {
+  direction: 'left' | 'right' | 'up' | 'down';
+}
+
+const handleSwipe = (event: TouchEvent) => {
+  if (event.direction === 'left') {
+    nextMonth();
+  } else if (event.direction === 'right') {
+    prevMonth();
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 /* q-date subtitle stilini değiştirmek için */
 :deep(.q-date__navigation) {
+  /* ay ve yıl'a tıklayınca çalışmasın */
   pointer-events: none;
   .q-date__arrow {
+    /* ay ve yıl için okları göstermesin */
     display: none;
   }
 }
+
 :deep(.q-date__header-subtitle) {
-  pointer-events: none;
+  /* Subtitle ayarları */
   font-size: 14px !important;
-  color: white !important; /* Subtitle rengini değiştirin */
-  opacity: 1 !important;
+  color: white !important;
+  opacity: 0.8 !important;
   transition: none !important;
   white-space: nowrap;
 }
