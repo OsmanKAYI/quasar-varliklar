@@ -25,6 +25,7 @@
             :events="holidaysFn"
             :event-color="eventsColor"
             XXminimal
+            no-unset
             :subtitle="subtitleMessage"
             :title="formatDateCustom"
           >
@@ -328,6 +329,7 @@ const handleSwipe = (event: TouchEvent) => {
 
 :deep(.q-date__header-subtitle) {
   /* Subtitle ayarları */
+  pointer-events: none;
   font-size: 14px !important;
   color: white !important;
   opacity: 0.8 !important;
