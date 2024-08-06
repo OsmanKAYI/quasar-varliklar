@@ -117,10 +117,6 @@ const todaysDate = computed<string>(() => {
   return date.formatDate(Date.now(), 'YYYY/MM/DD');
 });
 
-const selectedDateFormatted = computed<string>(() => {
-  return date.formatDate(selectedDate.value, 'DD.MM.YYYY');
-});
-
 const formatDateCustom = computed<string>(() => {
   // Tarih nesnesi oluşturma
   const dateObj = new Date(selectedDate.value);
@@ -304,7 +300,7 @@ watchEffect(() => {
 
 // Takvimde sağa ve sola çekme (swipe) işlemleri
 interface TouchEvent {
-  direction: 'left' | 'right' | 'up' | 'down';
+  direction?: 'left' | 'right' | 'up' | 'down';
 }
 
 const handleSwipe = (event: TouchEvent) => {
