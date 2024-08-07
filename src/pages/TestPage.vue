@@ -132,12 +132,12 @@ const journeyTo = ref<IStation>(defaultTo);
 const journeyDate = ref<string | null>(null);
 
 // Değişkenlere ilk değer verilmesi
-journeyFrom.value.id = '1';
-journeyFrom.value.name = 'Ankara';
+journeyFrom.value.id = '3';
+journeyFrom.value.name = 'ÇANKIRI';
 journeyFrom.value.targets = [];
 
-journeyTo.value.id = '2';
-journeyTo.value.name = 'Çankırı';
+journeyTo.value.id = '9';
+journeyTo.value.name = 'ANKARA';
 journeyTo.value.targets = [];
 
 journeyDate.value = '2024/06/24';
@@ -145,12 +145,23 @@ journeyDate.value = '2024/06/24';
 interface IStation {
   id: string;
   name: string;
+  city?: string;
   targets: number[];
 }
 
 const allStations: IStation[] = [
-  { id: '9', name: 'ANKARA AŞTİ', targets: [3, 25, 12, 19, 11] },
-  { id: '2', name: 'İSTANBUL( AVRUPA )', targets: [25, 12, 19, 11] },
+  {
+    id: '9',
+    name: 'ANKARA AŞTİ',
+    city: 'Ankara',
+    targets: [3, 25, 12, 19, 11],
+  },
+  {
+    id: '2',
+    name: 'İSTANBUL( AVRUPA )',
+    city: 'Istanbul',
+    targets: [25, 12, 19, 11],
+  },
   { id: '4', name: 'İSTANBUL( DUDULLU )', targets: [12, 19, 11] },
   { id: '3', name: 'ÇANKIRI OTOGAR', targets: [19, 11] },
   { id: '6', name: 'KASTAMONU OTOGAR', targets: [3, 25, 12, 19, 11] },

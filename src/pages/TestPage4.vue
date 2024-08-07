@@ -55,18 +55,21 @@
             clickable
             v-ripple
             @click="handleSelect(item)"
-            v-close-popup
+            v-close-popup="closePopup"
           >
             <q-item-section side>
-              <q-icon name="place" color="primary" size="md" rounded />
+              <q-icon
+                name="place"
+                :color="modelStationInfo.id == item.id ? 'green' : 'primary'"
+                size="md"
+                rounded
+              />
             </q-item-section>
             <q-item-section>
               <q-item-label class="text-grey-10 text-weight-medium text-h6"
-                >Durak Adı {{ item }}</q-item-label
+                >{{ item.name }} // {{ item.id }}</q-item-label
               >
-              <q-item-label class="text-grey-8"
-                >{{ item }} için şehir adı</q-item-label
-              >
+              <q-item-label class="text-grey-8">{{ item.city }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -78,6 +81,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
+const closePopup = ref(false);
+
 const modelStationInfo = defineModel<IStation>('modelStationInfo', {
   default: null,
 });
@@ -86,6 +91,7 @@ const modelStationInfo = defineModel<IStation>('modelStationInfo', {
 interface IStation {
   id: string;
   name: string;
+  city?: string;
   targets: number[];
 }
 
@@ -117,6 +123,7 @@ const filteredOptions = computed(() => {
 
 const handleSelect = (item: IStation) => {
   modelStationInfo.value = item;
+  closePopup.value = true;
 };
 
 const quasarSearchInput = ref(null);
