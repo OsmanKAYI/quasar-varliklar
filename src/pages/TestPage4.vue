@@ -21,7 +21,6 @@
           clearable
           :class="{ 'big-text': myFilter }"
           style="min-width: 80%"
-          ref="quasarSearchInput"
         >
           <template v-slot:prepend>
             <q-icon name="search" size="lg" color="primary" />
@@ -66,10 +65,12 @@
               />
             </q-item-section>
             <q-item-section>
-              <q-item-label class="text-grey-10 text-weight-medium text-h6"
-                >{{ item.name }} // {{ item.id }}</q-item-label
-              >
-              <q-item-label class="text-grey-8">{{ item.city }}</q-item-label>
+              <q-item-label class="text-grey-10 text-weight-medium text-h6">{{
+                titleCase(item.name)
+              }}</q-item-label>
+              <q-item-label class="text-grey-8">{{
+                sentenceCase(item.city)
+              }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -91,7 +92,7 @@ const modelStationInfo = defineModel<IStation>('modelStationInfo', {
 interface IStation {
   id: number;
   name: string;
-  city?: string;
+  city: string;
   targets: number[];
 }
 
@@ -102,31 +103,78 @@ const myProps = defineProps<{
 }>();
 
 // myOptions değişkeni
-const myOptions = ref<IStation[]>([]);
-myOptions.value = myProps.propOptions;
+//const myOptions = ref<IStation[]>([]);
+//myOptions.value = myProps.propOptions;
 
 const myFilter = ref<string | null>(null);
 
 const filteredOptions = computed(() => {
-  return myProps.propOptions;
-  /*
-  const filter = myFilter.value;
-  const options = myOptions.value;
+  const filterValue = myFilter.value ? turkishToLower(myFilter.value) : '';
 
-  if (!filter || filter == null) return options;
+  if (filterValue === '') {
+    return myProps.propOptions;
+  }
 
-  return options.filter((option) =>
-    option.toLowerCase().includes(filter.toLowerCase())
-  );
-  */
+  return myProps.propOptions.filter((item) => {
+    return (
+      turkishToLower(item.name).includes(filterValue) ||
+      turkishToLower(item.city).includes(filterValue)
+    );
+  });
 });
+
+function turkishToLower(str: string): string {
+  return str
+    .replace(/I/g, 'ı')
+    .replace(/İ/g, 'i')
+    .replace(/Ğ/g, 'ğ')
+    .replace(/Ü/g, 'ü')
+    .replace(/Ş/g, 'ş')
+    .replace(/Ö/g, 'ö')
+    .replace(/Ç/g, 'ç')
+    .toLowerCase();
+}
+
+function turkishToUpper(str: string): string {
+  return str
+    .replace(/ı/g, 'I')
+    .replace(/i/g, 'İ')
+    .replace(/ğ/g, 'Ğ')
+    .replace(/ü/g, 'Ü')
+    .replace(/ş/g, 'Ş')
+    .replace(/ö/g, 'Ö')
+    .replace(/ç/g, 'Ç')
+    .toUpperCase();
+}
+
+function sentenceCase(str: string): string {
+  let lowerCaseStr = turkishToLower(str);
+  return (
+    turkishToUpper(lowerCaseStr.charAt(0)) +
+    turkishToLower(lowerCaseStr.slice(1))
+  );
+}
+
+function titleCase(str: string): string {
+  // İlk olarak tüm string'i küçük harfe çevir
+  const lowerCaseStr = turkishToLower(str);
+
+  // Kelimeleri ayır
+  const words = lowerCaseStr.split(' ');
+
+  // Her kelimenin baş harfini büyük yap
+  const titleCasedWords = words.map(
+    (word) => turkishToUpper(word.charAt(0)) + turkishToLower(word.slice(1))
+  );
+
+  // Kelimeleri tekrar birleştir
+  return titleCasedWords.join(' ');
+}
 
 const handleSelect = (item: IStation) => {
   modelStationInfo.value = item;
   closePopup.value = true;
 };
-
-const quasarSearchInput = ref(null);
 </script>
 
 <style scoped>

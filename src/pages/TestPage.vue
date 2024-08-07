@@ -48,7 +48,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-item-label class="text-h4 text-white" lines="2">{{
+          <q-item-label class="text-h6 text-white" lines="2">{{
             journeyFrom.name
           }}</q-item-label>
         </q-card-section>
@@ -63,7 +63,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-item-label class="text-h4 text-white" lines="2">{{
+          <q-item-label class="text-h6 text-white" lines="2">{{
             journeyTo.name
           }}</q-item-label>
         </q-card-section>
@@ -78,7 +78,7 @@
         </q-card-section>
 
         <q-card-section>
-          <q-item-label class="text-h4 text-white" lines="1">{{
+          <q-item-label class="text-h6 text-white" lines="1">{{
             journeyDate
           }}</q-item-label>
         </q-card-section>
@@ -119,11 +119,13 @@ const dialogDate = ref(false);
 const defaultFrom = {
   id: 9,
   name: 'Ankara',
+  city: 'Ankara',
   targets: [3, 6],
 };
 const defaultTo = {
   id: 2,
   name: 'Çankırı',
+  city: 'Çankırı',
   targets: [3, 6, 1],
 };
 
@@ -136,55 +138,114 @@ journeyDate.value = '2024/06/24';
 interface IStation {
   id: number;
   name: string;
-  city?: string;
+  city: string;
   targets: number[];
 }
 
 const allStations: IStation[] = [
-  {
-    id: 9,
-    name: 'ANKARA AŞTİ',
-    city: 'Ankara',
-    targets: [3, 6],
-  },
+  { id: 9, name: 'ANKARA AŞTİ', city: 'anKaRa', targets: [3, 25, 12, 19, 11] },
   {
     id: 2,
-    name: 'İSTANBUL( AVRUPA )',
-    city: 'Istanbul',
-    targets: [3, 6, 1],
+    name: 'İSTANBUL (AVRUPA)',
+    city: 'istanbul',
+    targets: [25, 12, 19, 11],
   },
-  { id: 4, name: 'İSTANBUL( DUDULLU )', targets: [12, 19, 11] },
-  { id: 3, name: 'ÇANKIRI OTOGAR', targets: [19, 11] },
-  { id: 6, name: 'KASTAMONU OTOGAR', targets: [3, 25, 12, 19, 11] },
-  { id: 25, name: 'ALİBEYKÖY', targets: [3, 25, 12, 19, 11] },
-  { id: 20, name: 'ARAÇ', targets: [3, 25, 12, 19, 11] },
-  { id: 16, name: 'ATKARACALAR', targets: [3, 25, 12, 19, 11] },
-  { id: 15, name: 'ÇERKEŞ', targets: [3, 25, 12, 19, 11] },
-  { id: 14, name: 'DEVREKANİ', targets: [3, 25, 12, 19, 11] },
-  { id: 17, name: 'GEBZE OTOGAR', targets: [3, 25, 12, 19, 11] },
-  { id: 24, name: 'GÜZELYALI', targets: [3, 25, 12, 19, 11] },
-  { id: 7, name: 'HAREM TERMİNALİ', targets: [3, 25, 12, 19, 11] },
-  { id: 12, name: 'ILGAZ DOĞRUYOL', targets: [3, 25, 12, 19, 11] },
-  { id: 28, name: 'ILGAZ AKBAK', targets: [3, 25, 12, 19, 11] },
-  { id: 27, name: 'ILGAZ KAYAK MERKEZİ', targets: [3, 25, 12, 19, 11] },
-  { id: 18, name: 'İZMİT ( KOCAELİ )', targets: [3, 25, 12, 19, 11] },
-  { id: 21, name: 'KARABÜK OTOGAR', targets: [3, 25, 12, 19, 11] },
-  { id: 46, name: 'SAFRANBOLU', targets: [3, 25, 12, 19, 11] },
-  { id: 23, name: 'KAYNARCA', targets: [3, 25, 12, 19, 11] },
-  { id: 10, name: 'KORGUN', targets: [3, 25, 12, 19, 11] },
-  { id: 5, name: 'KURŞUNLU', targets: [3, 25, 12, 19, 11] },
-  { id: 22, name: 'SOĞUKSU IŞIKDAĞI', targets: [3, 25, 12, 19, 11] },
-  { id: 26, name: 'OLUKBAŞI', targets: [3, 25, 12, 19, 11] },
-  { id: 8, name: 'PURSAKLAR', targets: [3, 25, 12, 19, 11] },
-  { id: 19, name: 'SAKARYA ( ADAPAZARI )', targets: [3, 25, 12, 19, 11] },
-  { id: 13, name: 'SEYDİLER', targets: [3, 25, 12, 19, 11] },
-  { id: 1, name: 'TÜNEY ', targets: [3, 25, 12, 19, 11] },
-  { id: 11, name: 'YAMUÇLAR', targets: [3, 25, 12, 19, 11] },
-  { id: 29, name: 'İĞDİR', targets: [3, 25, 12, 19, 11] },
-  { id: 30, name: 'BOLU', targets: [3, 25, 12, 19, 11] },
-  { id: 31, name: 'DÜZCE', targets: [3, 25, 12, 19, 11] },
+  {
+    id: 4,
+    name: 'İSTANBUL (DUDULLU)',
+    city: 'İSTANBUL',
+    targets: [12, 19, 11],
+  },
+  { id: 3, name: 'ÇANKIRI OTOGAR', city: 'Çankırı', targets: [19, 11] },
+  {
+    id: 6,
+    name: 'KASTAMONU OTOGAR',
+    city: 'Kastamonu',
+    targets: [3, 25, 12, 19, 11],
+  },
+  { id: 25, name: 'ALİBEYKÖY', city: 'İstanbul', targets: [3, 25, 12, 19, 11] },
+  { id: 20, name: 'ARAÇ', city: 'Kastamonu', targets: [3, 25, 12, 19, 11] },
+  {
+    id: 16,
+    name: 'ATKARACALAR',
+    city: 'Kastamonu',
+    targets: [3, 25, 12, 19, 11],
+  },
+  { id: 15, name: 'ÇERKEŞ', city: 'Çankırı', targets: [3, 25, 12, 19, 11] },
+  {
+    id: 14,
+    name: 'DEVREKANİ',
+    city: 'Kastamonu',
+    targets: [3, 25, 12, 19, 11],
+  },
+  {
+    id: 17,
+    name: 'GEBZE OTOGAR',
+    city: 'Kocaeli',
+    targets: [3, 25, 12, 19, 11],
+  },
+  { id: 24, name: 'GÜZELYALI', city: 'İstanbul', targets: [3, 25, 12, 19, 11] },
+  {
+    id: 7,
+    name: 'HAREM TERMİNALİ',
+    city: 'İstanbul',
+    targets: [3, 25, 12, 19, 11],
+  },
+  {
+    id: 12,
+    name: 'ILGAZ DOĞRUYOL',
+    city: 'Kastamonu',
+    targets: [3, 25, 12, 19, 11],
+  },
+  {
+    id: 28,
+    name: 'ILGAZ AKBAK',
+    city: 'Kastamonu',
+    targets: [3, 25, 12, 19, 11],
+  },
+  {
+    id: 27,
+    name: 'ILGAZ KAYAK MERKEZİ',
+    city: 'Kastamonu',
+    targets: [3, 25, 12, 9, 6],
+  },
+  {
+    id: 18,
+    name: 'İZMİT (KOCAELİ)',
+    city: 'Kocaeli',
+    targets: [3, 25, 12, 19, 11],
+  },
+  {
+    id: 21,
+    name: 'KARABÜK OTOGAR',
+    city: 'Karabük',
+    targets: [3, 25, 12, 19, 11],
+  },
+  { id: 46, name: 'SAFRANBOLU', city: 'Karabük', targets: [3, 25, 12, 19, 11] },
+  { id: 23, name: 'KAYNARCA', city: 'Bolu', targets: [3, 25, 12, 19, 11] },
+  { id: 10, name: 'KORGUN', city: 'Çankırı', targets: [3, 25, 12, 19, 11] },
+  { id: 5, name: 'KURŞUNLU', city: 'Çankırı', targets: [3, 25, 12, 19, 11] },
+  {
+    id: 22,
+    name: 'SOĞUKSU IŞIKDAĞI',
+    city: 'Çankırı',
+    targets: [3, 25, 12, 19, 11],
+  },
+  { id: 26, name: 'OLUKBAŞI', city: 'Bolu', targets: [3, 25, 12, 19, 11] },
+  { id: 8, name: 'PURSAKLAR', city: 'Ankara', targets: [3, 25, 12, 19, 11] },
+  {
+    id: 19,
+    name: 'SAKARYA (ADAPAZARI)',
+    city: 'Sakarya',
+    targets: [3, 25, 12, 19, 11],
+  },
+  { id: 13, name: 'SEYDİLER', city: 'Çankırı', targets: [3, 25, 12, 19, 11] },
+  { id: 1, name: 'TÜNEY', city: 'Ankara', targets: [3, 25, 12, 19, 11] },
+  { id: 11, name: 'YAMUÇLAR', city: 'Ankara', targets: [3, 25, 12, 19, 11] },
+  { id: 29, name: 'İĞDİR', city: 'Iğdır', targets: [3, 25, 12, 19, 11] },
+  { id: 30, name: 'BOLU', city: 'Bolu', targets: [3, 25, 12, 19, 11] },
+  { id: 31, name: 'DÜZCE', city: 'Düzce', targets: [3, 25, 12, 19, 11] },
 ];
-
 const filteredStations = computed<IStation[]>(() => {
   if (journeyFrom.value.id) {
     const filtered = allStations.filter((item) => {
