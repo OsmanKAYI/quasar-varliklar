@@ -1,34 +1,34 @@
 <template>
   <q-dialog
-    v-model="var1"
+    v-model="dialogFrom"
     maximized
     transition-show="slide-down"
     transition-hide="slide-up"
     transition-duration="150"
   >
     <TestPage4
-      v-model:stationInfo="stationFrom"
+      v-model:modelStationInfo="journeyFrom"
       propTitle="Nereden bineceksiniz?"
       :propOptions="allStations"
     ></TestPage4>
   </q-dialog>
 
   <q-dialog
-    v-model="var2"
+    v-model="dialogTo"
     maximized
     transition-show="slide-down"
     transition-hide="slide-up"
     transition-duration="150"
   >
     <TestPage4
-      v-model:stationInfo="stationTo"
+      v-model:stationInfo="journeyTo"
       propTitle="Nerede ineceksiniz?"
       :propOptions="allStations"
     ></TestPage4>
   </q-dialog>
 
   <q-dialog
-    v-model="var3"
+    v-model="dialogDate"
     maximized
     transition-show="slide-down"
     transition-hide="slide-up"
@@ -41,7 +41,7 @@
     <q-list style="width: 300px">
       <q-card
         class="bg-blue-5 text-center q-my-md text-white q-card--hover"
-        @click="var1 = !var1"
+        @click="dialogFrom = !dialogFrom"
       >
         <q-card-section>
           <q-item-label class="text-white">Nereden?</q-item-label>
@@ -49,14 +49,14 @@
 
         <q-card-section>
           <q-item-label class="text-h4 text-white" lines="1">{{
-            stationTo
+            journeyFrom
           }}</q-item-label>
         </q-card-section>
       </q-card>
 
       <q-card
         class="bg-blue-7 text-center q-my-md text-white q-card--hover"
-        @click="var2 = !var2"
+        @click="dialogTo = !dialogTo"
       >
         <q-card-section>
           <q-item-label class="text-white">Nereye?</q-item-label>
@@ -64,14 +64,14 @@
 
         <q-card-section>
           <q-item-label class="text-h4 text-white" lines="1">{{
-            stationTo
+            journeyTo
           }}</q-item-label>
         </q-card-section>
       </q-card>
 
       <q-card
         class="bg-blue-9 text-center q-my-md text-white q-card--hover"
-        @click="var3 = !var3"
+        @click="dialogDate = !dialogDate"
       >
         <q-card-section>
           <q-item-label class="text-white">Tarih?</q-item-label>
@@ -112,29 +112,43 @@ import { ref } from 'vue';
 import TestPage3 from 'pages/TestPage3.vue';
 import TestPage4 from 'pages/TestPage4.vue';
 
-const var1 = ref(false);
-const var2 = ref(false);
-const var3 = ref(false);
-const stationFrom = ref<string | null>(null);
-const stationTo = ref<string | null>(null);
+const dialogFrom = ref(false);
+const dialogTo = ref(false);
+const dialogDate = ref(false);
+
+const defaultFrom = {
+  id: '1',
+  name: 'Ankara',
+  targets: [],
+};
+const defaultTo = {
+  id: '2',
+  name: 'Çankırı',
+  targets: [],
+};
+
+const journeyFrom = ref<IStation>(defaultFrom);
+const journeyTo = ref<IStation>(defaultTo);
 const journeyDate = ref<string | null>(null);
 
-stationFrom.value = 'Ankara';
-stationTo.value = 'Çankırı';
+// Değişkenlere ilk değer verilmesi
+journeyFrom.value.id = '1';
+journeyFrom.value.name = 'Ankara';
+journeyFrom.value.targets = [];
+
+journeyTo.value.id = '2';
+journeyTo.value.name = 'Çankırı';
+journeyTo.value.targets = [];
+
 journeyDate.value = '2024/06/24';
 
-interface Station {
+interface IStation {
   id: string;
   name: string;
   targets: number[];
 }
 
-interface StationItem {
-  id: string;
-  name: string;
-}
-
-const allStations: Station[] = [
+const allStations: IStation[] = [
   { id: '9', name: 'ANKARA AŞTİ', targets: [3, 25, 12, 19, 11] },
   { id: '2', name: 'İSTANBUL( AVRUPA )', targets: [25, 12, 19, 11] },
   { id: '4', name: 'İSTANBUL( DUDULLU )', targets: [12, 19, 11] },
@@ -168,8 +182,4 @@ const allStations: Station[] = [
   { id: '30', name: 'BOLU', targets: [3, 25, 12, 19, 11] },
   { id: '31', name: 'DÜZCE', targets: [3, 25, 12, 19, 11] },
 ];
-
-const filteredOptions = computed(() => {
-  return allStations.filter((option) => option);
-});
 </script>

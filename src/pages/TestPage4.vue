@@ -5,7 +5,7 @@
         <q-avatar>
           <img src="/logos/OzlemLogo_64x64.svg" />
         </q-avatar>
-        <q-toolbar-title>Bineceğiniz yer?</q-toolbar-title>
+        <q-toolbar-title>{{ myProps.propTitle }}</q-toolbar-title>
         <q-btn flat round dense icon="close" size="lg" v-close-popup />
       </q-toolbar>
 
@@ -51,7 +51,7 @@
         <q-list separator class="q-ma-sm">
           <q-item
             v-for="item in filteredOptions"
-            :key="item"
+            :key="item.id"
             clickable
             v-ripple
             @click="handleSelect(item)"
@@ -78,32 +78,32 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
+const modelStationInfo = defineModel<IStation>('modelStationInfo', {
+  default: null,
+});
+
+// IStation arayüzü
+interface IStation {
+  id: string;
+  name: string;
+  targets: number[];
+}
+
+// Props tanımlaması
+const myProps = defineProps<{
+  propTitle: string;
+  propOptions: IStation[];
+}>();
+
+// myOptions değişkeni
+const myOptions = ref<IStation[]>([]);
+myOptions.value = myProps.propOptions;
+
 const myFilter = ref<string | null>(null);
-// const myOptions = ref([...Array(100).keys()]); // Örnek öğeler
-const myOptions = ref([
-  'Option 1',
-  'Option 2',
-  'Option 3',
-  'Option 4',
-  'Option 5',
-  'Option 6',
-  'Option 7',
-  'Option 8',
-  'Option 9',
-  'Option 10',
-  'Option 11',
-  'Option 12',
-  'Option 13',
-  'Option 14',
-  'Option 15',
-  'Option 16',
-  'Option 17',
-  'Option 18',
-  'Option 19',
-  'Option 20',
-]);
 
 const filteredOptions = computed(() => {
+  return myProps.propOptions;
+  /*
   const filter = myFilter.value;
   const options = myOptions.value;
 
@@ -112,17 +112,12 @@ const filteredOptions = computed(() => {
   return options.filter((option) =>
     option.toLowerCase().includes(filter.toLowerCase())
   );
+  */
 });
 
-const handleSelect = (option: string) => {
-  stationInfo.value = option;
-  console.log(option);
+const handleSelect = (item: IStation) => {
+  modelStationInfo.value = item;
 };
-
-const stationInfo = defineModel<string | null>('stationInfo', {
-  type: String,
-  default: null,
-});
 
 const quasarSearchInput = ref(null);
 </script>
