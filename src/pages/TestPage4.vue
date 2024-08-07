@@ -89,7 +89,7 @@ const modelStationInfo = defineModel<IStation>('modelStationInfo', {
 
 // IStation arayüzü
 interface IStation {
-  id: string;
+  id: number;
   name: string;
   city?: string;
   targets: number[];
