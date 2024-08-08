@@ -108,7 +108,7 @@
 </style>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import TestPage3 from 'pages/TestPage3.vue';
 import TestPage4 from 'pages/TestPage4.vue';
 
@@ -118,6 +118,23 @@ const dialogDate = ref(false);
 
 const journeyFrom = ref<IStation | null>(null);
 const journeyTo = ref<IStation | null>(null);
+
+// Watcher to update journeyTo whenever journeyFrom changes
+watch(journeyFrom, () => {
+  journeyTo.value = computedJourneyTo.value;
+});
+
+const computedJourneyTo = computed(() => {
+  if (!journeyFrom.value || allStations.value.length === 0) {
+    return null;
+  }
+  return (
+    allStations.value.find(
+      (station) => station.id === journeyFrom.value?.targets[0]
+    ) || null
+  );
+});
+
 const journeyDate = ref<string | null>(null);
 
 journeyDate.value = '2024/06/24';
@@ -137,6 +154,7 @@ onMounted(async () => {
     allStations.value = await response.json();
 
     journeyFrom.value = allStations.value[0];
+
     journeyTo.value =
       allStations.value.find(
         (station) => station.id == journeyFrom.value?.targets[0]
