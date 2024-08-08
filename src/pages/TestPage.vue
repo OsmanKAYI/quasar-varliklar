@@ -137,7 +137,10 @@ onMounted(async () => {
     allStations.value = await response.json();
 
     journeyFrom.value = allStations.value[0];
-    journeyTo.value = allStations.value[journeyFrom.value.targets[0]];
+    journeyTo.value =
+      allStations.value.find(
+        (station) => station.id == journeyFrom.value?.targets[0]
+      ) || null;
   } else {
     console.error('Veriler yüklenemedi:', response.statusText);
   }
