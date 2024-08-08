@@ -59,7 +59,7 @@
             <q-item-section side>
               <q-icon
                 name="place"
-                :color="modelStationInfo.id == item.id ? 'green' : 'primary'"
+                :color="modelStationInfo?.id == item.id ? 'green' : 'primary'"
                 size="md"
                 rounded
               />
@@ -84,7 +84,7 @@ import { ref, computed } from 'vue';
 
 const closePopup = ref(false);
 
-const modelStationInfo = defineModel<IStation>('modelStationInfo', {
+const modelStationInfo = defineModel<IStation | null>('modelStationInfo', {
   default: null,
 });
 

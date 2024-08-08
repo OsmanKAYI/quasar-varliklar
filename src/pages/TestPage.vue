@@ -49,7 +49,7 @@
 
         <q-card-section>
           <q-item-label class="text-h6 text-white" lines="2">{{
-            journeyFrom.name
+            journeyFrom?.name
           }}</q-item-label>
         </q-card-section>
       </q-card>
@@ -64,7 +64,7 @@
 
         <q-card-section>
           <q-item-label class="text-h6 text-white" lines="2">{{
-            journeyTo.name
+            journeyTo?.name
           }}</q-item-label>
         </q-card-section>
       </q-card>
@@ -116,21 +116,8 @@ const dialogFrom = ref(false);
 const dialogTo = ref(false);
 const dialogDate = ref(false);
 
-const defaultFrom = {
-  id: 9,
-  name: 'Ankara',
-  city: 'Ankara',
-  targets: [3, 6],
-};
-const defaultTo = {
-  id: 2,
-  name: 'Çankırı',
-  city: 'Çankırı',
-  targets: [3, 6, 1],
-};
-
-const journeyFrom = ref<IStation>(defaultFrom);
-const journeyTo = ref<IStation>(defaultTo);
+const journeyFrom = ref<IStation | null>(null);
+const journeyTo = ref<IStation | null>(null);
 const journeyDate = ref<string | null>(null);
 
 journeyDate.value = '2024/06/24';
@@ -148,15 +135,18 @@ onMounted(async () => {
   const response = await fetch('src/data/duraklar.json');
   if (response.ok) {
     allStations.value = await response.json();
+
+    journeyFrom.value = allStations.value[0];
+    journeyTo.value = allStations.value[journeyFrom.value.targets[0]];
   } else {
     console.error('Veriler yüklenemedi:', response.statusText);
   }
 });
 
 const filteredStations = computed<IStation[]>(() => {
-  if (journeyFrom.value.id) {
+  if (journeyFrom.value?.id) {
     const filtered = allStations.value.filter((item) => {
-      return journeyFrom.value.targets.includes(item.id);
+      return journeyFrom.value?.targets.includes(item.id);
     });
     return filtered;
   } else {
