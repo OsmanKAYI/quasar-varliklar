@@ -1,0 +1,179 @@
+[
+  {
+    "id": 9,
+    "name": "ANKARA AŞTİ",
+    "city": "anKaRa",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 2,
+    "name": "İSTANBUL (AVRUPA)",
+    "city": "istanbul",
+    "targets": [25, 12, 19, 11]
+  },
+  {
+    "id": 4,
+    "name": "İSTANBUL (DUDULLU)",
+    "city": "İSTANBUL",
+    "targets": [12, 19, 11]
+  },
+  { "id": 3, "name": "ÇANKIRI OTOGAR", "city": "Çankırı", "targets": [19, 11] },
+  {
+    "id": 6,
+    "name": "KASTAMONU OTOGAR",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 25,
+    "name": "ALİBEYKÖY",
+    "city": "İstanbul",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 20,
+    "name": "ARAÇ",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 16,
+    "name": "ATKARACALAR",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 15,
+    "name": "ÇERKEŞ",
+    "city": "Çankırı",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 14,
+    "name": "DEVREKANİ",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 17,
+    "name": "GEBZE OTOGAR",
+    "city": "Kocaeli",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 24,
+    "name": "GÜZELYALI",
+    "city": "İstanbul",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 7,
+    "name": "HAREM TERMİNALİ",
+    "city": "İstanbul",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 12,
+    "name": "ILGAZ DOĞRUYOL",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 28,
+    "name": "ILGAZ AKBAK",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 27,
+    "name": "ILGAZ KAYAK MERKEZİ",
+    "city": "Kastamonu",
+    "targets": [3, 25, 12, 9, 6]
+  },
+  {
+    "id": 18,
+    "name": "İZMİT (KOCAELİ)",
+    "city": "Kocaeli",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 21,
+    "name": "KARABÜK OTOGAR",
+    "city": "Karabük",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 46,
+    "name": "SAFRANBOLU",
+    "city": "Karabük",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 23,
+    "name": "KAYNARCA",
+    "city": "Bolu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 10,
+    "name": "KORGUN",
+    "city": "Çankırı",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 5,
+    "name": "KURŞUNLU",
+    "city": "Çankırı",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 22,
+    "name": "SOĞUKSU IŞIKDAĞI",
+    "city": "Çankırı",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 26,
+    "name": "OLUKBAŞI",
+    "city": "Bolu",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 8,
+    "name": "PURSAKLAR",
+    "city": "Ankara",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 19,
+    "name": "SAKARYA (ADAPAZARI)",
+    "city": "Sakarya",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 13,
+    "name": "SEYDİLER",
+    "city": "Çankırı",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 1,
+    "name": "TÜNEY",
+    "city": "Ankara",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 11,
+    "name": "YAMUÇLAR",
+    "city": "Ankara",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  {
+    "id": 29,
+    "name": "İĞDİR",
+    "city": "Iğdır",
+    "targets": [3, 25, 12, 19, 11]
+  },
+  { "id": 30, "name": "BOLU", "city": "Bolu", "targets": [3, 25, 12, 19, 11] },
+  { "id": 31, "name": "DÜZCE", "city": "Düzce", "targets": [3, 25, 12, 19, 11] }
+]
