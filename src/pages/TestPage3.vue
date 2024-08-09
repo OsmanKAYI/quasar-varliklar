@@ -107,14 +107,14 @@
 
 <script setup lang="ts">
 import { onMounted, ref, computed, watchEffect } from 'vue';
-import { date } from 'quasar';
+import { date as qDateUtils } from 'quasar';
 import { QDate } from 'quasar';
 
 const refSelectedDate = ref<QDate | null>(null);
 const selectedDate = ref<string>('');
 
 const todaysDate = computed<string>(() => {
-  return date.formatDate(Date.now(), 'YYYY/MM/DD');
+  return qDateUtils.formatDate(Date.now(), 'YYYY/MM/DD');
 });
 
 const formatDateCustom = computed<string>(() => {
@@ -151,8 +151,8 @@ onMounted(() => {
 });
 
 const updateYilAndAy = () => {
-  takvimAy.value = parseInt(date.formatDate(selectedDate.value, 'M'));
-  takvimYil.value = parseInt(date.formatDate(selectedDate.value, 'YYYY'));
+  takvimAy.value = parseInt(qDateUtils.formatDate(selectedDate.value, 'M'));
+  takvimYil.value = parseInt(qDateUtils.formatDate(selectedDate.value, 'YYYY'));
 };
 
 const setToday = () => {
@@ -162,10 +162,10 @@ const setToday = () => {
 };
 
 const setTomorrow = () => {
-  let tmpDate = date.addToDate(todaysDate.value, {
+  let tmpDate = qDateUtils.addToDate(todaysDate.value, {
     days: 1,
   });
-  selectedDate.value = date.formatDate(tmpDate, 'YYYY/MM/DD');
+  selectedDate.value = qDateUtils.formatDate(tmpDate, 'YYYY/MM/DD');
   updateYilAndAy();
   updateDatePicker();
 };
