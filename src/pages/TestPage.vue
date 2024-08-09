@@ -34,7 +34,10 @@
     transition-hide="slide-up"
     transition-duration="150"
   >
-    <TestPage3 v-model:selectDate="journeyDate"></TestPage3>
+    <TestPage3
+      v-model:modelSelectedDate="journeyDate"
+      propTitle="Seyahat Tarihiniz?"
+    ></TestPage3>
   </q-dialog>
 
   <q-page class="flex flex-center">

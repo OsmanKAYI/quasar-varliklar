@@ -5,7 +5,7 @@
         <q-avatar>
           <img src="/logos/OzlemLogo_64x64.svg" />
         </q-avatar>
-        <q-toolbar-title>Seyahat Tarihi?</q-toolbar-title>
+        <q-toolbar-title>{{ myProps.propTitle }}</q-toolbar-title>
         <q-btn flat round dense icon="close" size="lg" v-close-popup />
       </q-toolbar>
       <div class="hidden q-ma-none q-pa-sm bg-white text-black">
@@ -32,14 +32,14 @@
             <div class="row q-col-gutter-xs">
               <div class="col-12">
                 <q-btn
+                  @click="handleSelect"
+                  v-close-popup="closePopup"
                   no-caps
                   color="primary"
-                  @click="selectAndContinue"
                   class="full-width"
                   size="lg"
                   outline
                   no-wrap
-                  v-close-popup
                   icon-right="send"
                   label="Devam Et"
                 />
@@ -146,6 +146,7 @@ const subtitleMessage = ref<string>('');
 selectedDate.value = todaysDate.value;
 
 onMounted(() => {
+  selectedDate.value = modelSelectedDate.value || '';
   updateYilAndAy();
 });
 
@@ -211,8 +212,11 @@ const onCalenderNavigation = (view: CalendarView) => {
   takvimYil.value = view.year;
 };
 
-const selectAndContinue = () => {
-  // alert('Oldu');
+const closePopup = ref(false); // Tıklama ile kapatılacak düğmede: v-close-popup="closePopup" yazılmalıdır.
+
+const handleSelect = () => {
+  modelSelectedDate.value = selectedDate.value;
+  closePopup.value = true;
 };
 
 // TATİL GÜNLERİ AYARLARI
@@ -310,6 +314,15 @@ const handleSwipe = (event: TouchEvent) => {
     prevMonth();
   }
 };
+
+const modelSelectedDate = defineModel<string | null>('modelSelectedDate', {
+  required: true,
+});
+
+// Props tanımlaması
+const myProps = defineProps<{
+  propTitle: string;
+}>();
 </script>
 
 <style lang="scss" scoped>
