@@ -15,10 +15,10 @@
 
     <q-page-container>
       <q-page class="flex justify-around">
-        <div style="max-width: min-content">
+        <div style="max-width: max-content">
           <q-date
             v-touch-swipe.mouse.left.right="handleSwipe"
-            class="q-mt-md my-date"
+            class="custom-date q-mt-sm q-mb-xl full-width full-height no-shadow"
             v-model="selectedDate"
             ref="refSelectedDate"
             @navigation="onCalenderNavigation"
@@ -38,6 +38,7 @@
                   color="primary"
                   class="full-width"
                   size="lg"
+                  style="font-size: 1.5rem !important"
                   outline
                   no-wrap
                   icon-right="send"
@@ -48,6 +49,7 @@
               <div class="col-6">
                 <q-btn
                   no-caps
+                  size="md"
                   color="primary"
                   @click="prevMonth"
                   class="full-width"
@@ -60,6 +62,7 @@
               <div class="col-6">
                 <q-btn
                   no-caps
+                  size="md"
                   color="primary"
                   @click="nextMonth"
                   class="full-width"
@@ -72,6 +75,7 @@
               <div class="col-6">
                 <q-btn
                   no-caps
+                  size="md"
                   color="positive"
                   @click="setToday"
                   class="full-width"
@@ -83,6 +87,7 @@
               <div class="col-6">
                 <q-btn
                   no-caps
+                  size="md"
                   color="primary"
                   @click="setTomorrow"
                   class="full-width"
@@ -339,10 +344,34 @@ const myProps = defineProps<{
 :deep(.q-date__header-subtitle) {
   /* Subtitle ayarları */
   pointer-events: none;
-  font-size: 14px !important;
+  font-size: 1rem !important;
   color: white !important;
   opacity: 0.8 !important;
   transition: none !important;
   white-space: nowrap;
+}
+
+// Gün Adları
+:deep(.q-date__calendar-item) {
+  font-size: 1.2rem !important;
+  font-weight: 400 !important;
+}
+
+// Bugün Günü
+:deep(.q-date__today) {
+  font-weight: text-weight-light !important;
+}
+
+// Takvim Günleri
+:deep(.custom-date .q-btn) {
+  font-size: 1.4rem !important;
+  font-weight: 300 !important;
+  width: 3rem;
+}
+
+// Takvim Altı Düğmeleri
+.custom-date .q-btn {
+  font-weight: 400;
+  font-size: 1.2rem !important;
 }
 </style>
